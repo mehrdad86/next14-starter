@@ -1,7 +1,12 @@
+"use client"
 import Image from "next/image";
 import styles from './about.module.css'
 
 const AboutPage = () => {
+
+    let a = Math.random();
+    console.log(a);
+
     return (
         <div className={styles.container}>
             <div className={styles.textContainer}>
@@ -28,7 +33,7 @@ const AboutPage = () => {
                 </div>
             </div>
             <div className={styles.imgContainer}>
-                <Image 
+                <Image
                     src="/about.png"
                     alt=""
                     fill
