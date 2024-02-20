@@ -1,7 +1,18 @@
 import Image from 'next/image';
 import styles from './singlePost.module.css';
 
-const SinglePostPage = () => {
+const getData = async (slug) => {
+    const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${slug}`);
+    if (!res.ok) {
+        throw new Error("Something went wrong");
+    }
+    return res.json();
+}
+
+const SinglePostPage = async ({ params }) => {
+
+    const post = await getData(params.slug)
+
     return (
         <div className={styles.container}>
             <div className={styles.imgContainer}>
@@ -12,7 +23,7 @@ const SinglePostPage = () => {
                     fill />
             </div>
             <div className={styles.textContainer}>
-                <h1 className={styles.title}>Title</h1>
+                <h1 className={styles.title}>{post.title}</h1>
                 <div className={styles.detail}>
                     <Image
                         className={styles.avatar}
@@ -30,7 +41,7 @@ const SinglePostPage = () => {
                     </div>
                 </div>
                 <div className={styles.content}>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi nihil sunt inventore similique voluptatibus dolores cupiditate dicta. Doloremque consectetur commodi eos? Porro nam asperiores ea incidunt rerum perspiciatis molestiae ipsum.
+                    {post.body}
                 </div>
             </div>
         </div>
